@@ -2,28 +2,26 @@
 
 NixOS ARM64 RootFS for DroidSpaces
 
-"NixOS 26.11" · "AArch64" · "LXC RootFS" · "DroidSpaces"
+NixOS 26.11 · AArch64 · LXC RootFS · DroidSpaces
 
-Bahasa Indonesia · English
+<img src="https://brand.nixos.org/logos/nixos-logo-default-gradient-black-regular-horizontal-recommended.svg" alt="NixOS Logo" width="420"></div>---
 
-<img src="https://nixos.org/logo/nixos-logo-default-gradient.svg" alt="NixOS Logo" width="300"></div>---
-
-Bahasa Indonesia
+🇮🇩 Bahasa Indonesia
 
 Tentang
 
-NixOs-RootFs-images adalah project RootFS NixOS ARM64/AArch64 yang dibuat untuk menjalankan Linux userspace melalui DroidSpaces pada perangkat Android yang kompatibel.
+NixOs-RootFs-images adalah project NixOS ARM64/AArch64 RootFS yang dibuat untuk menjalankan Linux userspace melalui DroidSpaces pada perangkat Android yang kompatibel.
 
-RootFS menggunakan format LXC dan dibuat sebagai environment NixOS yang dapat dikembangkan dan dikonfigurasi sesuai kebutuhan pengguna.
+RootFS menggunakan format LXC dan menyediakan environment NixOS yang dapat dikembangkan dan dikonfigurasi sesuai kebutuhan pengguna.
 
 Informasi Build
 
-OS            NixOS 26.11
-Architecture  AArch64 / ARM64
-Format        LXC RootFS
-Platform      DroidSpaces
-CPU           Qualcomm SM7435
-Kernel        Linux 5.10.269-FleurX
+OS            : NixOS 26.11
+Architecture  : AArch64 / ARM64
+Format        : LXC RootFS
+Platform      : DroidSpaces
+CPU           : Qualcomm SM7435
+Kernel        : Linux 5.10.269-FleurX
 
 Fitur
 
@@ -53,7 +51,7 @@ Download RootFS melalui bagian Releases repository ini.
 
 Setelah RootFS tersedia, import RootFS tersebut melalui DroidSpaces sesuai konfigurasi perangkat.
 
-Periksa architecture:
+Periksa Architecture
 
 uname -m
 
@@ -61,23 +59,23 @@ Output yang diharapkan:
 
 aarch64
 
-Periksa kernel:
+Periksa Kernel
 
 uname -r
 
-Periksa sistem:
+Periksa Sistem
 
 cat /etc/os-release
 
 NixOS
 
-Project ini menggunakan "NixOS" (https://nixos.org/?utm_source=chatgpt.com) sebagai basis sistem.
+Project ini menggunakan NixOS sebagai basis sistem.
 
 Official Resources
 
-- "NixOS Website" (https://nixos.org/?utm_source=chatgpt.com)
-- "NixOS Manual" (https://nixos.org/manual/nixos/stable/?utm_source=chatgpt.com)
-- "NixOS Packages" (https://search.nixos.org/packages?utm_source=chatgpt.com)
+- https://nixos.org/
+- https://nixos.org/manual/nixos/stable/
+- https://search.nixos.org/packages
 
 DroidSpaces
 
@@ -100,7 +98,15 @@ Format       : LXC RootFS
 Target       : DroidSpaces
 Status       : Active Development
 
-Project ini masih dalam pengembangan. Isi RootFS, package, konfigurasi, dan release dapat berubah pada versi berikutnya.
+Project ini masih dalam pengembangan.
+
+Isi RootFS, package, konfigurasi, dan release dapat berubah pada versi berikutnya.
+
+Disclaimer
+
+Project ini merupakan community project dan bukan distribusi resmi NixOS maupun project resmi DroidSpaces.
+
+NixOS dan DroidSpaces tetap merupakan project masing-masing dari upstream mereka.
 
 Credits
 
@@ -108,6 +114,7 @@ Project ini menggunakan dan dibangun di atas ekosistem open-source:
 
 - NixOS
 - Nix
+- Nix package manager
 - nixos-generators
 - LXC
 - DroidSpaces
@@ -116,22 +123,22 @@ Terima kasih kepada seluruh developer dan contributor open-source dari project-p
 
 ---
 
-English
+🇬🇧 English
 
 About
 
-NixOs-RootFs-images provides a NixOS ARM64/AArch64 RootFS designed for running a Linux userspace through DroidSpaces on compatible Android devices.
+NixOs-RootFs-images provides a NixOS ARM64/AArch64 RootFS designed to run a Linux userspace through DroidSpaces on compatible Android devices.
 
 The RootFS uses the LXC format and provides a NixOS environment that can be configured and extended according to the user's needs.
 
 Build Information
 
-OS            NixOS 26.11
-Architecture  AArch64 / ARM64
-Format        LXC RootFS
-Platform      DroidSpaces
-CPU           Qualcomm SM7435
-Kernel        Linux 5.10.269-FleurX
+OS            : NixOS 26.11
+Architecture  : AArch64 / ARM64
+Format        : LXC RootFS
+Platform      : DroidSpaces
+CPU           : Qualcomm SM7435
+Kernel        : Linux 5.10.269-FleurX
 
 Features
 
@@ -161,7 +168,7 @@ Download the RootFS from the repository's Releases section.
 
 After downloading the RootFS, import it through DroidSpaces according to the configuration of your device.
 
-Check the architecture:
+Check Architecture
 
 uname -m
 
@@ -169,23 +176,23 @@ Expected output:
 
 aarch64
 
-Check the kernel:
+Check Kernel
 
 uname -r
 
-Check the operating system:
+Check Operating System
 
 cat /etc/os-release
 
 NixOS
 
-This project uses "NixOS" (https://nixos.org/?utm_source=chatgpt.com) as its system base.
+This project uses NixOS as its system base.
 
 Official Resources
 
-- "NixOS Website" (https://nixos.org/?utm_source=chatgpt.com)
-- "NixOS Manual" (https://nixos.org/manual/nixos/stable/?utm_source=chatgpt.com)
-- "NixOS Packages" (https://search.nixos.org/packages?utm_source=chatgpt.com)
+- https://nixos.org/
+- https://nixos.org/manual/nixos/stable/
+- https://search.nixos.org/packages
 
 DroidSpaces
 
@@ -208,7 +215,15 @@ Format       : LXC RootFS
 Target       : DroidSpaces
 Status       : Active Development
 
-This project is under active development. RootFS contents, packages, configurations, and releases may change over time.
+This project is under active development.
+
+RootFS contents, packages, configurations, and releases may change over time.
+
+Disclaimer
+
+This is a community project and is not an official NixOS distribution or an official DroidSpaces project.
+
+NixOS and DroidSpaces remain separate upstream projects.
 
 Credits
 
@@ -216,6 +231,7 @@ This project uses and builds upon the following open-source ecosystems:
 
 - NixOS
 - Nix
+- Nix package manager
 - nixos-generators
 - LXC
 - DroidSpaces
