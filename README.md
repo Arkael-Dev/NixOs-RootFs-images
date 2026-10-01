@@ -1,94 +1,109 @@
-# NixOS RootFS Images
+<div align="center">
 
-<p align="center">
-  <img src="https://nixos.org/logo/nixos-logo-only-hires.png" width="110">
-</p>
+<img src="https://brand.nixos.org/logos/nixos-logo-default-gradient-black-regular-horizontal-recommended.svg" width="360">
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Kingfinik98/NixOs-RootFs-images/main/docs/Banner.jpg" width="100%">
-</p>
+# NixOS ARM64 RootFS
 
-<p align="center">
-  <strong>NixOS ARM64 RootFS for DroidSpaces</strong><br>
-  Lightweight • LXC • AArch64
-</p>
+### NixOS RootFS for DroidSpaces
 
-<p align="center">
-  <img src="https://img.shields.io/badge/NixOS-26.11-5277C3?style=flat-square&logo=nixos&logoColor=white">
-  <img src="https://img.shields.io/badge/Arch-AArch64-00A8E8?style=flat-square">
-  <img src="https://img.shields.io/badge/RootFS-LXC-FF8C00?style=flat-square">
-  <img src="https://img.shields.io/badge/Target-DroidSpaces-8E44AD?style=flat-square">
-</p>
+Lightweight · AArch64 · LXC · Android Linux Environment
 
-<p align="center">
-  <img src="https://img.shields.io/badge/CPU-Qualcomm%20SM7435-222222?style=flat-square">
-  <img src="https://img.shields.io/badge/Kernel-5.10.269--FleurX-222222?style=flat-square">
-  <img src="https://img.shields.io/badge/Platform-Android-222222?style=flat-square">
-</p>
+<br>
+
+<img src="https://img.shields.io/badge/NixOS-26.11-5277C3?style=for-the-badge&logo=nixos&logoColor=white">
+<img src="https://img.shields.io/badge/AArch64-ARM64-7EBAE4?style=for-the-badge">
+<img src="https://img.shields.io/badge/LXC-RootFS-FFB000?style=for-the-badge">
+<img src="https://img.shields.io/badge/DroidSpaces-Android-444444?style=for-the-badge">
+
+<br><br>
+
+<img src="https://img.shields.io/badge/CPU-Qualcomm%20SM7435-1f1f1f?style=flat-square">
+<img src="https://img.shields.io/badge/Kernel-5.10.269--FleurX-1f1f1f?style=flat-square">
+<img src="https://img.shields.io/badge/Platform-Android-1f1f1f?style=flat-square">
+
+</div>
 
 ---
 
-## About
+## Overview
 
-NixOS ARM64 RootFS built for **DroidSpaces**.
+NixOS ARM64 RootFS built specifically for running a NixOS userspace inside DroidSpaces.
 
-A lightweight and configurable Linux userspace powered by the **Nix ecosystem**, designed to run inside an LXC-based Android Linux environment.
+The project provides a lightweight AArch64 Linux environment using an LXC-compatible RootFS and the Nix ecosystem.
 
 ```text
-NixOS
-  |
-  v
-RootFS
-  |
-  v
-LXC
-  |
-  v
-DroidSpaces
-  |
-  v
-Android
+┌─────────────────────┐
+│       Android       │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│    DroidSpaces      │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│        LXC          │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│      NixOS ARM64    │
+└─────────────────────┘
 ```
 
-## Specs
+---
 
-| Item | Details |
-|---|---|
+## System Specifications
+
+| Component | Configuration |
+|:--|:--|
 | OS | NixOS 26.11 |
 | Architecture | AArch64 / ARM64 |
 | RootFS | LXC |
-| Target | DroidSpaces |
+| Runtime | DroidSpaces |
+| Platform | Android |
 | CPU | Qualcomm SM7435 |
 | Kernel | Linux 5.10.269-FleurX |
-| Platform | Android |
+
+---
 
 ## Features
 
-- NixOS userspace
+- NixOS ARM64 userspace
+- AArch64 / ARM64 support
 - Nix package manager
-- ARM64 / AArch64
-- LXC RootFS
+- LXC-compatible RootFS
 - DroidSpaces support
 - Declarative configuration
 - Reproducible configuration
 - Lightweight Linux environment
+- Customizable NixOS userspace
+
+---
 
 ## Requirements
 
-- ARM64 / AArch64 device
-- Compatible Android environment
-- Compatible Linux kernel
-- DroidSpaces
-- Sufficient storage and RAM
-- Required namespaces and cgroups
+```text
+ARM64 / AArch64 device
+Compatible Android environment
+Compatible Linux kernel
+DroidSpaces
+Sufficient RAM
+Sufficient storage
+Namespace support
+Cgroup support
+```
 
-> Compatibility depends on the device, kernel, drivers, namespaces, cgroups and DroidSpaces environment.
+Compatibility depends on the Android device, kernel configuration, drivers, namespaces, cgroups and available permissions.
 
-## Usage
+---
 
-Download the latest RootFS from **GitHub Releases** and import it into DroidSpaces.
+## Installation
 
-Verify architecture:
+Download the latest RootFS from the GitHub Releases page and import it into DroidSpaces.
+
+After entering the environment, verify the architecture:
 
 ```bash
 uname -m
@@ -100,43 +115,184 @@ Expected:
 aarch64
 ```
 
-Check NixOS:
+Check the NixOS version:
 
 ```bash
 nixos-version
 ```
 
-Check Nix:
+Check the Nix package manager:
 
 ```bash
 nix --version
 ```
 
+---
+
+## Quick Verification
+
+Run:
+
+```bash
+echo "=== NixOS RootFS ==="
+echo
+echo "Architecture:"
+uname -m
+echo
+echo "NixOS:"
+nixos-version
+echo
+echo "Nix:"
+nix --version
+```
+
+Expected architecture:
+
+```text
+aarch64
+```
+
+---
+
 ## Project Structure
 
 ```text
 NixOs-RootFs-images/
+│
 ├── configuration.nix
+│
 ├── rootfs/
+│
 ├── scripts/
+│
 ├── docs/
 │   └── Banner.jpg
+│
 ├── releases/
+│
 └── README.md
 ```
 
+---
+
+## Build Architecture
+
+```text
+             configuration.nix
+                    │
+                    ▼
+              NixOS Build
+                    │
+                    ▼
+             ARM64 RootFS
+                    │
+                    ▼
+                   LXC
+                    │
+                    ▼
+              DroidSpaces
+                    │
+                    ▼
+            Android Linux
+```
+
+---
+
+## Configuration
+
+The main NixOS configuration is provided through:
+
+```text
+configuration.nix
+```
+
+The configuration can be modified according to the requirements of the target environment.
+
+Typical workflow:
+
+```text
+Edit configuration
+        │
+        ▼
+   Build NixOS
+        │
+        ▼
+ Generate RootFS
+        │
+        ▼
+ Package RootFS
+        │
+        ▼
+    Release
+        │
+        ▼
+ Deploy to DroidSpaces
+```
+
+---
+
+## NixOS Environment
+
+NixOS uses a declarative configuration model for defining the system environment, packages and services.
+
+```text
+configuration.nix
+        │
+        ▼
+      NixOS
+        │
+        ├── Packages
+        ├── Services
+        ├── System Configuration
+        └── Userspace
+```
+
+This makes the environment reproducible and easier to customize.
+
+---
+
+## DroidSpaces Environment
+
+The intended runtime architecture is:
+
+```text
+Android Host
+      │
+      ▼
+ DroidSpaces
+      │
+      ▼
+ LXC Container
+      │
+      ▼
+NixOS ARM64 RootFS
+      │
+      ├── Nix
+      ├── Packages
+      ├── Shell
+      └── Linux Userspace
+```
+
+The RootFS provides the Linux userspace.
+
+Kernel functionality is provided by the Android host kernel.
+
+---
+
 ## Releases
 
-Prebuilt RootFS images are available in **GitHub Releases**.
+Prebuilt RootFS images are distributed through GitHub Releases.
 
-Each release may include:
+A release may contain:
 
-- RootFS archive
-- SHA256 checksum
-- Build information
-- Release notes
+```text
+RootFS archive
+SHA256 checksum
+Build information
+Release notes
+```
 
-Verify the downloaded image:
+Verify a downloaded image:
 
 ```bash
 sha256sum <rootfs-file>
@@ -148,7 +304,9 @@ Example:
 sha256sum nixos-arm64-rootfs.tar.xz
 ```
 
-Compare the generated SHA256 hash with the checksum provided in the corresponding release.
+The generated SHA256 hash should match the checksum published with the corresponding release.
+
+---
 
 ## Compatibility
 
@@ -162,100 +320,23 @@ CPU Target   : Qualcomm SM7435
 Kernel       : Linux 5.10.269-FleurX
 ```
 
-Device-specific functionality depends on the Android kernel, drivers, namespaces, cgroups, filesystem support and permissions.
-
-## Configuration
-
-The main NixOS configuration is provided through:
+Device-specific functionality depends on:
 
 ```text
-configuration.nix
+Android Kernel
+Drivers
+Namespaces
+Cgroups
+Filesystem Support
+Permissions
+Device Interfaces
 ```
 
-The configuration can be customized according to the requirements of the target environment.
-
-Basic workflow:
-
-```text
-configuration.nix
-       |
-       v
-   NixOS Build
-       |
-       v
-   ARM64 RootFS
-       |
-       v
-      LXC
-       |
-       v
- DroidSpaces
-```
-
-## NixOS Environment
-
-NixOS uses a declarative configuration model that allows the system environment and installed packages to be defined through configuration.
-
-```text
-Configuration
-      |
-      v
-    NixOS
-      |
-      +── Packages
-      +── Services
-      +── System Configuration
-      +── Userspace
-```
-
-## DroidSpaces
-
-The intended runtime environment is:
-
-```text
-Android Host
-     |
-     v
-DroidSpaces
-     |
-     v
-LXC Container
-     |
-     v
-NixOS ARM64 RootFS
-     |
-     +── Nix
-     +── Packages
-     +── Shell
-     +── Linux Userspace
-```
-
-The RootFS provides the userspace environment. Kernel functionality is provided by the Android host kernel.
-
-## Build Flow
-
-```text
-configuration.nix
-       |
-       v
-  NixOS Build
-       |
-       v
- ARM64 RootFS
-       |
-       v
-  LXC Package
-       |
-       v
-   Release
-       |
-       v
- DroidSpaces
-```
+---
 
 ## Verification
 
-After importing the RootFS, verify the environment with:
+After importing the RootFS:
 
 ```bash
 uname -m
@@ -275,34 +356,41 @@ For release verification:
 sha256sum <rootfs-file>
 ```
 
-The generated hash should match the SHA256 checksum published with the release.
+Compare the generated hash with the SHA256 checksum provided in the release.
+
+---
 
 ## Disclaimer
 
 This is an independent community project.
 
-This project is not affiliated with, sponsored by, or officially supported by **NixOS**, **Nix**, or **DroidSpaces**.
+This project is not affiliated with, sponsored by, or officially supported by NixOS, Nix, or DroidSpaces.
 
 Compatibility may vary depending on the device, Android environment, Linux kernel, drivers and DroidSpaces configuration.
+
+---
 
 ## Credits
 
 - [NixOS](https://nixos.org/)
 - [Nix](https://nixos.org/)
+- [NixOS Branding](https://brand.nixos.org/)
 - [nixos-generators](https://github.com/nix-community/nixos-generators)
 - [LXC](https://linuxcontainers.org/)
 - DroidSpaces
 
 ---
 
-<p align="center">
-  <img src="https://nixos.org/logo/nixos-logo-only-hires.png" width="65">
-</p>
+<div align="center">
 
-<p align="center">
-  <code>NixOS</code> · <code>AArch64</code> · <code>LXC</code> · <code>DroidSpaces</code>
-</p>
+<img src="https://brand.nixos.org/logos/nixos-logo-default-gradient-black-regular-horizontal-recommended.svg" width="220">
 
-<p align="center">
-  <strong>Build. Deploy. Configure.</strong>
-</p>
+<br>
+
+**NixOS · AArch64 · LXC · DroidSpaces**
+
+<br>
+
+`BUILD` · `DEPLOY` · `CONFIGURE`
+
+</div>
