@@ -1,85 +1,231 @@
-# Arkael RootFS Images
+<div align="center">NixOs-RootFs-images
 
-<p align="center">
-  <b>ARM64 Linux RootFS for Android & DroidSpaces</b><br>
-  NixOS • AArch64 • DroidSpaces
-</p>
+NixOS ARM64 RootFS for DroidSpaces
 
----
+"NixOS 26.11" · "AArch64" · "LXC RootFS" · "DroidSpaces"
 
-## 🧊 NixOS 26.11 — ARM64
+Bahasa Indonesia · English
 
-Lightweight NixOS 26.11 (Zokor) RootFS untuk menjalankan NixOS ARM64 di Android melalui DroidSpaces.
+<img src="./assets/nixos-fastfetch.svg" alt="NixOS Fastfetch" width="900"></div>---
 
-| Property | Value |
-|---|---|
-| OS | NixOS 26.11 (Zokor) |
-| Architecture | AArch64 / ARM64 |
-| Format | LXC RootFS |
-| Init | `/sbin/init` |
-| Compressed Size | ~229 MB |
-| Target | DroidSpaces |
-| Status | ✅ Tested |
+Bahasa Indonesia
 
-## 📦 Image
+Tentang
 
-`nixos-image-lxc-26.11pre-git-aarch64-linux.tar.xz`
+NixOs-RootFs-images adalah project RootFS NixOS ARM64/AArch64 yang dibuat untuk menjalankan Linux userspace melalui DroidSpaces pada perangkat Android yang kompatibel.
 
-Image tersedia pada GitHub Releases.
+RootFS menggunakan format LXC dan dibuat sebagai environment NixOS yang dapat dikembangkan dan dikonfigurasi sesuai kebutuhan pengguna.
 
-## 🔐 SHA256
+Informasi Build
 
-`7028083b80fc762727a2d9460314fe3bd471375499b79e803f010c79f230b381`
+OS        NixOS 26.11
+Architecture  AArch64 / ARM64
+Format    LXC RootFS
+Platform  DroidSpaces
+CPU       Qualcomm SM7435
+Kernel    Linux 5.10.269-FleurX
 
-## 🚀 DroidSpaces
+Fitur
 
-Image telah diuji langsung di DroidSpaces.
+- NixOS userspace untuk ARM64/AArch64
+- LXC RootFS
+- Target DroidSpaces
+- Nix package manager
+- NixOS configuration
+- Cocok untuk eksperimen Linux userspace pada Android
+- Dapat dikembangkan menjadi environment NixOS custom
 
-- ✅ NixOS 26.11
-- ✅ AArch64
-- ✅ `/sbin/init`
-- ✅ Container boot
-- ✅ Host networking
-- ✅ Android internal storage
+Persyaratan
 
-Verification:
+Perangkat yang digunakan sebaiknya memiliki:
 
-```bash
-cat /etc/os-release
+Architecture : ARM64 / AArch64
+Environment  : DroidSpaces
+Kernel       : Linux kernel yang kompatibel
+Storage      : Ruang penyimpanan yang mencukupi
+RAM          : Sesuai kebutuhan workload
+
+Kompatibilitas dapat berbeda tergantung perangkat, kernel, Android, dan versi DroidSpaces.
+
+Penggunaan
+
+Download RootFS melalui bagian Releases repository ini.
+
+Setelah RootFS tersedia, import RootFS tersebut melalui DroidSpaces sesuai konfigurasi perangkat.
+
+Periksa architecture:
+
 uname -m
-uname -r
-```
 
-Expected architecture:
+Output yang diharapkan:
 
-```text
 aarch64
-```
 
-## 🛠️ Build
+Periksa kernel:
 
-Image dibuat menggunakan NixOS dan nixos-generators dengan format LXC.
+uname -r
 
-```text
-NixOS 26.11
-    ↓
-AArch64
-    ↓
-LXC RootFS
-    ↓
+Periksa sistem:
+
+cat /etc/os-release
+
+NixOS
+
+Project ini menggunakan "NixOS" (https://reference-url-citation.invalid/0) sebagai basis sistem.
+
+Official resources:
+
+- "NixOS Website" (https://reference-url-citation.invalid/1)
+- "NixOS Manual" (https://reference-url-citation.invalid/2)
+- "NixOS Packages" (https://reference-url-citation.invalid/3)
+
 DroidSpaces
-    ↓
-Android
-```
 
-## 👤 Maintainer
+RootFS ini ditujukan untuk digunakan sebagai Linux userspace melalui DroidSpaces.
 
-**Arkael-Dev**
+Hasil penggunaan dapat berbeda tergantung:
 
-GitHub: https://github.com/Arkael-Dev
+Device
+Android version
+Kernel
+DroidSpaces version
+RAM
+Storage
 
-Email: kingfinix98@gmail.com
+Status
+
+Project      : NixOs-RootFs-images
+Architecture : AArch64
+Format       : LXC RootFS
+Target       : DroidSpaces
+Status       : Active Development
+
+Project ini masih dalam pengembangan. Isi RootFS, package, konfigurasi, dan release dapat berubah pada versi berikutnya.
+
+Credits
+
+Project ini menggunakan dan dibangun di atas ekosistem open-source:
+
+- NixOS
+- Nix
+- nixos-generators
+- LXC
+- DroidSpaces
+
+Terima kasih kepada seluruh developer dan contributor open-source dari project-project tersebut.
 
 ---
 
-<p align="center"><b>Arkael-Dev • ARM64 RootFS</b></p>
+English
+
+About
+
+NixOs-RootFs-images provides a NixOS ARM64/AArch64 RootFS designed for running a Linux userspace through DroidSpaces on compatible Android devices.
+
+The RootFS uses the LXC format and provides a NixOS environment that can be configured and extended according to the user's needs.
+
+Build Information
+
+OS            NixOS 26.11
+Architecture  AArch64 / ARM64
+Format        LXC RootFS
+Platform      DroidSpaces
+CPU           Qualcomm SM7435
+Kernel        Linux 5.10.269-FleurX
+
+Features
+
+- NixOS userspace for ARM64/AArch64
+- LXC RootFS
+- DroidSpaces target
+- Nix package manager
+- NixOS configuration
+- Suitable for Linux userspace experiments on Android
+- Can be extended into a custom NixOS environment
+
+Requirements
+
+The device should provide:
+
+Architecture : ARM64 / AArch64
+Environment  : DroidSpaces
+Kernel       : Compatible Linux kernel
+Storage      : Sufficient free space
+RAM          : Depends on workload
+
+Compatibility may vary depending on the device, kernel, Android version, and DroidSpaces version.
+
+Usage
+
+Download the RootFS from the repository's Releases section.
+
+After downloading the RootFS, import it through DroidSpaces according to the configuration of your device.
+
+Check the architecture:
+
+uname -m
+
+Expected output:
+
+aarch64
+
+Check the kernel:
+
+uname -r
+
+Check the operating system:
+
+cat /etc/os-release
+
+NixOS
+
+This project uses "NixOS" (https://reference-url-citation.invalid/4) as its system base.
+
+Official resources:
+
+- "NixOS Website" (https://reference-url-citation.invalid/5)
+- "NixOS Manual" (https://reference-url-citation.invalid/6)
+- "NixOS Packages" (https://reference-url-citation.invalid/7)
+
+DroidSpaces
+
+This RootFS is intended to provide a Linux userspace through DroidSpaces.
+
+Actual behavior may vary depending on:
+
+Device
+Android version
+Kernel
+DroidSpaces version
+RAM
+Storage
+
+Status
+
+Project      : NixOs-RootFs-images
+Architecture : AArch64
+Format       : LXC RootFS
+Target       : DroidSpaces
+Status       : Active Development
+
+This project is under active development. RootFS contents, packages, configurations, and releases may change over time.
+
+Credits
+
+This project uses and builds upon the following open-source ecosystems:
+
+- NixOS
+- Nix
+- nixos-generators
+- LXC
+- DroidSpaces
+
+Thanks to the developers and contributors of these projects.
+
+---
+
+<div align="center">NixOS · ARM64 · DroidSpaces
+
+"Build. Boot. Configure. Reproduce."
+
+</div>
