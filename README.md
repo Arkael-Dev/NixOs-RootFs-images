@@ -52,7 +52,78 @@ NixOS ARM64 RootFS for running the NixOS userspace through DroidSpaces on compat
 
 Run the following commands inside the NixOS environment:
 
-```bash
-uname -m
-nixos-version
-nix --version
+    uname -m
+    nixos-version
+    nix --version
+
+## Builder
+
+Built and maintained by **Arkael-Dev**.
+
+[![GitHub](https://img.shields.io/badge/GitHub-Arkael--Dev-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Arkael-Dev)
+
+## Project Structure
+
+    NixOs-RootFs-images/
+    ├── configuration.nix
+    ├── rootfs/
+    ├── scripts/
+    ├── docs/
+    │   └── Banner.gif
+    ├── releases/
+    └── README.md
+
+## Requirements
+
+- ARM64 / AArch64 Android device
+- Compatible Android kernel
+- DroidSpaces
+- Sufficient storage
+- Sufficient RAM
+
+## Releases
+
+Each release may include:
+
+- ARM64 RootFS
+- SHA256 checksum
+- Build information
+- Release notes
+
+## Verify the RootFS
+
+After downloading a RootFS image, verify its SHA256 checksum:
+
+    sha256sum <rootfs-file>
+
+Compare the generated checksum with the checksum provided with the corresponding release.
+
+## Compatibility
+
+| Component | Details |
+|---|---|
+| Architecture | AArch64 / ARM64 |
+| CPU | Qualcomm SM7435 |
+| Kernel | Linux 5.10.269-FleurX |
+| Environment | DroidSpaces |
+| RootFS | LXC |
+
+## Credits
+
+This project makes use of:
+
+- [NixOS](https://nixos.org/)
+- [Nix](https://nixos.org/)
+- nixos-generators
+- LXC
+- DroidSpaces
+
+## Disclaimer
+
+This is an independent community project and is not officially affiliated with NixOS or DroidSpaces.
+
+<div align="center">
+
+### Arkael-Dev
+
+</div>
