@@ -1,0 +1,102 @@
+name: Build NixOS ARM64 RootFS
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "configuration.nix"
+      - ".github/workflows/build-nixos-rootfs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build NixOS 26.11 ARM64 LXC
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v20
+
+      - name: Enable Nix flakes
+        run: |
+          mkdir -p ~/.config/nix
+          cat > ~/.config/nix/nix.conf <<'EOF'
+experimental-features = nix-command flakes
+extra-platforms = aarch64-linux
+EOF
+
+      - name: Enable ARM64 binfmt
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Check configuration
+        run: |
+          test -f configuration.nix
+          echo "configuration.nix found"
+
+      - name: Build NixOS ARM64 LXC RootFS
+        run: |
+          nix run github:nix-community/nixos-generators -- \
+            -f lxc \
+            -c ./configuration.nix \
+            --system aarch64-linux \
+            -o ./nixos-arm64
+
+      - name: Find generated image
+        id: image
+        run: |
+          IMG=$(find -L ./nixos-arm64 /nix/store \
+            -type f \
+            -name 'nixos-image-lxc-*-aarch64-linux.tar.xz' \
+            2>/dev/null | head -n1)
+
+          if [ -z "$IMG" ]; then
+            echo "ERROR: NixOS ARM64 image not found"
+            exit 1
+          fi
+
+          echo "IMAGE=$IMG" >> "$GITHUB_OUTPUT"
+
+          echo "=== IMAGE ==="
+          ls -lh "$IMG"
+
+          echo "=== SHA256 ==="
+          sha256sum "$IMG"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          IMG="${{ steps.image.outputs.IMAGE }}"
+          TAG="nixos-26.11-arm64-build-${GITHUB_RUN_NUMBER}"
+
+          SHA256=$(sha256sum "$IMG" | awk '{print $1}')
+          SIZE=$(du -h "$IMG" | awk '{print $1}')
+
+          gh release create "$TAG" "$IMG" \
+            --repo "${{ github.repository }}" \
+            --title "NixOS 26.11 ARM64 RootFS — Build ${GITHUB_RUN_NUMBER}" \
+            --notes "NixOS 26.11 (Zokor) ARM64 LXC RootFS.
+
+Build: #${GITHUB_RUN_NUMBER}
+Architecture: aarch64-linux
+Format: LXC RootFS
+Init: /sbin/init
+Compressed size: ${SIZE}
+
+SHA256:
+${SHA256}
+
+Built automatically by GitHub Actions.
+
+DroidSpaces target:
+https://github.com/Arkael-Dev/NixOs-RootFs-images
+
+NixOS:
+https://nixos.org/"
