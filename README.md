@@ -124,6 +124,6 @@ This is an independent community project and is not officially affiliated with N
 
 <div align="center">
 
-### Arkael-Dev
+### [Arkael-Dev](https://github.com/Arkael-Dev)
 
 </div>
