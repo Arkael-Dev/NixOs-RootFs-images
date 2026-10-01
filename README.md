@@ -6,7 +6,7 @@ NixOS ARM64 RootFS for DroidSpaces
 
 Bahasa Indonesia · English
 
-<img src="./assets/nixos-fastfetch.svg" alt="NixOS Fastfetch" width="900"></div>---
+<img src="https://nixos.org/logo/nixos-logo-default-gradient.svg" alt="NixOS Logo" width="300"></div>---
 
 Bahasa Indonesia
 
@@ -18,12 +18,12 @@ RootFS menggunakan format LXC dan dibuat sebagai environment NixOS yang dapat di
 
 Informasi Build
 
-OS        NixOS 26.11
+OS            NixOS 26.11
 Architecture  AArch64 / ARM64
-Format    LXC RootFS
-Platform  DroidSpaces
-CPU       Qualcomm SM7435
-Kernel    Linux 5.10.269-FleurX
+Format        LXC RootFS
+Platform      DroidSpaces
+CPU           Qualcomm SM7435
+Kernel        Linux 5.10.269-FleurX
 
 Fitur
 
@@ -71,13 +71,13 @@ cat /etc/os-release
 
 NixOS
 
-Project ini menggunakan "NixOS" (https://reference-url-citation.invalid/0) sebagai basis sistem.
+Project ini menggunakan "NixOS" (https://nixos.org/?utm_source=chatgpt.com) sebagai basis sistem.
 
-Official resources:
+Official Resources
 
-- "NixOS Website" (https://reference-url-citation.invalid/1)
-- "NixOS Manual" (https://reference-url-citation.invalid/2)
-- "NixOS Packages" (https://reference-url-citation.invalid/3)
+- "NixOS Website" (https://nixos.org/?utm_source=chatgpt.com)
+- "NixOS Manual" (https://nixos.org/manual/nixos/stable/?utm_source=chatgpt.com)
+- "NixOS Packages" (https://search.nixos.org/packages?utm_source=chatgpt.com)
 
 DroidSpaces
 
@@ -179,13 +179,13 @@ cat /etc/os-release
 
 NixOS
 
-This project uses "NixOS" (https://reference-url-citation.invalid/4) as its system base.
+This project uses "NixOS" (https://nixos.org/?utm_source=chatgpt.com) as its system base.
 
-Official resources:
+Official Resources
 
-- "NixOS Website" (https://reference-url-citation.invalid/5)
-- "NixOS Manual" (https://reference-url-citation.invalid/6)
-- "NixOS Packages" (https://reference-url-citation.invalid/7)
+- "NixOS Website" (https://nixos.org/?utm_source=chatgpt.com)
+- "NixOS Manual" (https://nixos.org/manual/nixos/stable/?utm_source=chatgpt.com)
+- "NixOS Packages" (https://search.nixos.org/packages?utm_source=chatgpt.com)
 
 DroidSpaces
 
