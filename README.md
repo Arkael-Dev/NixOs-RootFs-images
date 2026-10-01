@@ -132,7 +132,7 @@ This project is made possible by the following technologies and projects:
 - [Nix](https://nixos.org/)
 - [nixos-generators](https://github.com/nix-community/nixos-generators)
 - [LXC](https://linuxcontainers.org/lxc/)
-- [DroidSpaces](https://github.com/DroidSpaces/DroidSpaces)
+- [DroidSpaces](https://github.com/ravindu644/Droidspaces-OSS)
 
 ## Maintainer
 
