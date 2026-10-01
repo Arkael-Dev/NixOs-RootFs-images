@@ -15,7 +15,7 @@
 
 <img src="https://img.shields.io/github/stars/Arkael-Dev/NixOs-RootFs-images?style=for-the-badge&label=Stars">
 <img src="https://img.shields.io/github/forks/Arkael-Dev/NixOs-RootFs-images?style=for-the-badge&label=Forks">
-<img src="https://komarev.com/ghpvc/?username=Arkael-Dev&label=Profile%20Views&style=for-the-badge" alt="Profile Views">
+<img src="https://img.shields.io/github/last-commit/Arkael-Dev/NixOs-RootFs-images?style=for-the-badge&label=Last%20Commit">
 
 </div>
 
