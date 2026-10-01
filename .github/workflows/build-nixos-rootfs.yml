@@ -3,6 +3,8 @@ name: Build NixOS ARM64 RootFS
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths:
       - "configuration.nix"
       - ".github/workflows/build-nixos-rootfs.yml"
@@ -10,93 +12,121 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: build-nixos-rootfs
+  cancel-in-progress: true
+
+env:
+  # Ganti sesuai versi NixOS yang dipakai configuration.nix
+  # contoh: nixos-unstable, nixos-25.11
+  NIXPKGS_CHANNEL: nixos-unstable
+
 jobs:
   build:
-    name: Build NixOS 26.11 ARM64 LXC
-    runs-on: ubuntu-24.04
+    name: Build NixOS ARM64 LXC
+    # Runner ARM native: tanpa QEMU, jauh lebih cepat & stabil.
+    # (gratis untuk repo public)
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 120
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v20
-
-      - name: Enable Nix flakes
-        run: |
-          mkdir -p ~/.config/nix
-          cat > ~/.config/nix/nix.conf <<'EOF'
-experimental-features = nix-command flakes
-extra-platforms = aarch64-linux
-EOF
-
-      - name: Enable ARM64 binfmt
-        uses: docker/setup-qemu-action@v3
+        uses: DeterminateSystems/nix-installer-action@main
         with:
-          platforms: arm64
+          extra-conf: |
+            experimental-features = nix-command flakes
+            max-jobs = auto
 
-      - name: Check configuration
+      - name: Verify environment
         run: |
+          set -eux
+          uname -m
+          nix --version
           test -f configuration.nix
           echo "configuration.nix found"
+          sed -n '1,240p' configuration.nix
 
-      - name: Build NixOS ARM64 LXC RootFS
+      - name: Build ARM64 LXC RootFS
         run: |
-          nix run github:nix-community/nixos-generators -- \
-            -f lxc \
-            -c ./configuration.nix \
-            --system aarch64-linux \
+          set -eux
+
+          nix-build \
+            -I "nixpkgs=channel:${NIXPKGS_CHANNEL}" \
+            -E '
+              let
+                nixos = import <nixpkgs/nixos/lib/eval-config.nix> {
+                  system = "aarch64-linux";
+                  modules = [
+                    <nixpkgs/nixos/modules/virtualisation/lxc-container.nix>
+                    ./configuration.nix
+                  ];
+                };
+              in nixos.config.system.build.tarball
+            ' \
             -o ./nixos-arm64
 
-      - name: Find generated image
+      - name: Locate RootFS
         id: image
         run: |
-          IMG=$(find -L ./nixos-arm64 /nix/store \
-            -type f \
-            -name 'nixos-image-lxc-*-aarch64-linux.tar.xz' \
-            2>/dev/null | head -n1)
+          set -eux
 
-          if [ -z "$IMG" ]; then
-            echo "ERROR: NixOS ARM64 image not found"
+          find -L ./nixos-arm64 -maxdepth 3 -type f -print
+
+          SRC="$(find -L ./nixos-arm64 -type f \
+            \( -name '*.tar.xz' -o -name '*.tar.zst' -o -name '*.tar.gz' \) \
+            -print -quit)"
+
+          if [ -z "$SRC" ]; then
+            echo "ERROR: ARM64 LXC RootFS archive not found"
             exit 1
           fi
 
+          # Salin keluar dari /nix/store dengan nama yang rapi
+          EXT="${SRC#*.tar}"
+          mkdir -p dist
+          IMG="dist/nixos-arm64-rootfs-${GITHUB_RUN_NUMBER}.tar${EXT}"
+          cp -L "$SRC" "$IMG"
+
           echo "IMAGE=$IMG" >> "$GITHUB_OUTPUT"
 
-          echo "=== IMAGE ==="
           ls -lh "$IMG"
-
-          echo "=== SHA256 ==="
-          sha256sum "$IMG"
+          sha256sum "$IMG" | tee "$IMG.sha256"
 
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          IMG: ${{ steps.image.outputs.IMAGE }}
         run: |
-          IMG="${{ steps.image.outputs.IMAGE }}"
-          TAG="nixos-26.11-arm64-build-${GITHUB_RUN_NUMBER}"
+          set -eux
 
-          SHA256=$(sha256sum "$IMG" | awk '{print $1}')
-          SIZE=$(du -h "$IMG" | awk '{print $1}')
+          TAG="nixos-arm64-build-${GITHUB_RUN_NUMBER}"
+          SHA256="$(awk '{print $1}' "$IMG.sha256")"
+          SIZE="$(du -h "$IMG" | awk '{print $1}')"
 
-          gh release create "$TAG" "$IMG" \
+          {
+            echo "NixOS ARM64 LXC RootFS."
+            echo
+            echo "- Build: #${GITHUB_RUN_NUMBER}"
+            echo "- Channel: ${NIXPKGS_CHANNEL}"
+            echo "- Architecture: aarch64-linux"
+            echo "- Format: LXC RootFS"
+            echo "- Size: ${SIZE}"
+            echo
+            echo "SHA256:"
+            echo '```'
+            echo "${SHA256}"
+            echo '```'
+            echo
+            echo "Built automatically by GitHub Actions."
+            echo
+            echo "DroidSpaces target: https://github.com/Arkael-Dev/NixOs-RootFs-images"
+            echo "NixOS: https://nixos.org/"
+          } > release-notes.md
+
+          gh release create "$TAG" "$IMG" "$IMG.sha256" \
             --repo "${{ github.repository }}" \
-            --title "NixOS 26.11 ARM64 RootFS — Build ${GITHUB_RUN_NUMBER}" \
-            --notes "NixOS 26.11 (Zokor) ARM64 LXC RootFS.
-
-Build: #${GITHUB_RUN_NUMBER}
-Architecture: aarch64-linux
-Format: LXC RootFS
-Init: /sbin/init
-Compressed size: ${SIZE}
-
-SHA256:
-${SHA256}
-
-Built automatically by GitHub Actions.
-
-DroidSpaces target:
-https://github.com/Arkael-Dev/NixOs-RootFs-images
-
-NixOS:
-https://nixos.org/"
+            --title "NixOS ARM64 RootFS — Build ${GITHUB_RUN_NUMBER}" \
+            --notes-file release-notes.md
